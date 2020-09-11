@@ -6,3 +6,38 @@
     text-align: left;
     color: black;
 }
+
+.Spacex-media-15{
+    height: 290px !important;
+}
+.Headertitle{
+  margin-top: 20px;
+}
+
+.Paper{
+    background-color: #f3f3f3;
+}
+
+.buttonSpace{
+    margin-bottom: 8px;
+}
+
+.bodyCss{
+    text-align: left;
+    font-size: 14px;
+}
+
+.subTitle{
+    color: mediumblue;
+    font-size: 21px;
+}
+
+.developed{
+    font-size: 18px;
+    font-weight: bold;
+    color: black;
+}
+
+.yearCss{
+    color: #43009c;
+}

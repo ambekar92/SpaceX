@@ -1,5 +1,5 @@
     const Configuration = {
-        BASE_URL : "http://23.97.51.138/olamapi/"
+        BASE_URL : "https://api.spaceXdata.com/v3/launches?"
     };
 
     export default Configuration;

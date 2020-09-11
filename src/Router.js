@@ -5,7 +5,7 @@ import BeenhereIcon from '@material-ui/icons/Beenhere';
 import {Link} from "react-router-dom";
 
 import Spacex from './Spacex/Spacex';
-import Ontest from './Home/ontest';
+
 import HeaderSideNav from './Layout/HeaderSideNav';
 
 
@@ -15,25 +15,17 @@ function RouterNav() {
                 <Switch>
                    
                     <Route path="/home">
-                    <HeaderSideNav/>
-                    
+                    <HeaderSideNav/>                    
                     <Spacex/>
-
-                    </Route>
-
-                    <Route path="/dashbaord">
-                    <HeaderSideNav/>
-                    <h1>Dashbaord Page</h1>
-                    <Ontest/>
                     </Route>
 
                     <Route exact path="/">
-                    <h1>Login Page</h1>
-
+                    <center>
+                    <h1>SpaceX Launch Program</h1>
                     <Button variant="contained" color="primary" component={Link} to="/home">
-                        <BeenhereIcon/> Login to Home
+                        <BeenhereIcon/> Click Here 
                     </Button>
-
+                    </center>
                     </Route>
 
                 </Switch>
