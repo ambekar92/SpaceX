@@ -71,7 +71,7 @@ class Spacex extends React.Component {
             })
             .then(res => res.json())
             .then((data) => {
-                console.log(data)
+                //console.log(data)
                 this.setState({ setData: data }) 
             })
             .catch(console.log)
@@ -100,14 +100,24 @@ class Spacex extends React.Component {
 
 
     Launch_Land = (val) => {
-
-    }
-
-    Year_Launch_Land = (val) => {
+      console.log(val);
       
+      // fetch(base_url+'limit=100&land_success='+val.number+'&launch_success='+val,{
+      //   method:'GET',
+      //   headers: {
+      //       'Accept': 'application/json',
+      //       'Content-Type': 'application/json'       
+      //   }
+      // })
+      // .then(res => res.json())
+      // .then((data) => {
+      //   this.setState({ setData: data })
+      // })
+      // .catch(console.log)
+
     }
 
-
+   
      getButtonsUsingMap = () => {        
         const array = [2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,'Clear']    
         return array.map((number) => {
@@ -225,7 +235,7 @@ render() {
                     item xs={6} md={6} 
                     variant="contained" 
                     color="primary" 
-                    onClick={() => {this.Year_Launch_Land('T')}}
+                    onClick={() => {this.Launch_Land('Land_T')}}
                     key='True'
                     value='True'> True
                 </Button>
@@ -234,7 +244,7 @@ render() {
                     item xs={6} md={6} 
                     variant="contained" 
                     color="primary" 
-                    onClick={() => {this.Year_Launch_Land('F')}}
+                    onClick={() => {this.Launch_Land('Land_F')}}
                     key='False'
                     value='False'> False 
                 </Button>
