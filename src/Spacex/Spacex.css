@@ -41,3 +41,8 @@
 .yearCss{
     color: #43009c;
 }
+
+.itemCss{
+    color: blue;
+    font-weight: bold;
+}

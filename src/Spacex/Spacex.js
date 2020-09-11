@@ -46,13 +46,21 @@ class Spacex extends React.Component {
         super(props);
         this.state = {
           setData: [],
-          selectedYear:null 
+          selectedYear:null,
+          Gland_success:null,
+          Glaunch_success:null
         }
     }  
 
     getValue = (val) => {      
-        
-        if(val.number===0){
+        console.log(val)
+
+        if(val.number==='Clear'){
+
+          this.setState({
+            selectedYear:''
+          });
+
             // Initial Page
             fetch(base_url+'limit=100',{
             method:'GET',
@@ -63,6 +71,7 @@ class Spacex extends React.Component {
             })
             .then(res => res.json())
             .then((data) => {
+                console.log(data)
                 this.setState({ setData: data }) 
             })
             .catch(console.log)
@@ -73,7 +82,7 @@ class Spacex extends React.Component {
                 selectedYear: val.number
             });
 
-            fetch(base_url+'limit=100&launch_success=true&land_success=true&launch_year='+val.number,{
+            fetch(base_url+'limit=100&launch_year='+val.number,{
                 method:'GET',
                 headers: {
                     'Accept': 'application/json',
@@ -90,8 +99,17 @@ class Spacex extends React.Component {
     }
 
 
+    Launch_Land = (val) => {
+
+    }
+
+    Year_Launch_Land = (val) => {
+      
+    }
+
+
      getButtonsUsingMap = () => {        
-        const array = [2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020]    
+        const array = [2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,'Clear']    
         return array.map((number) => {
             let btn= <Button 
                         item xs={6} md={6} 
@@ -107,16 +125,37 @@ class Spacex extends React.Component {
       }
 
       componentDidMount() {
-        this.getValue({'number':0});
+        this.getValue({'number':'Clear'});
       }
 
 render() {
     const { classes } = this.props;
     let renderItems=null;
     let Cardval=null;
+    let launch_success=null;
+    let land_success=null;
 
       if (this.state.setData.length>0) {
          renderItems = this.state.setData.map(function(item, i) {
+           if(item.launch_success){
+            launch_success="True"
+           }else{
+            launch_success="False"
+           }
+
+           //console.log(item.rocket.first_stage.cores[0].land_success);
+
+           if(item.rocket.first_stage.cores[0].land_success==null){
+            land_success="-"
+           }else{
+              if(item.rocket.first_stage.cores[0].land_success){
+                land_success="True"
+                }else{
+                land_success="False"
+                }
+           }
+
+
           Cardval = <Col xs={12} md={3} className="buttonSpace">  
                   <Card className={classes.cardmaxWidth}>
                     <CardActionArea>
@@ -127,9 +166,10 @@ render() {
                         </Typography>
                       <h5 className="bodyCss">
                         <b>Mission IDs:</b>
-                          <li key={i}>{item.mission_id}</li><br/>
-                        <b>Launch Year:</b>{item.launch_year}<br/>
-                        <b>Successful Launch:</b>{item.launch_success}<br/>
+                          <li key={i}><span className='itemCss'>{item.mission_id}</span></li><br/>
+                        <b>Launch Year: </b><span className='itemCss'>{item.launch_year}</span><br/><br/>
+                        <b>Successful Launch: </b><span className='itemCss'>{launch_success}</span><br/><br/>
+                        <b>Successful Landing: </b><span className='itemCss'>{land_success}</span><br/>
                       </h5>  
                       </CardContent>
                     </CardActionArea>         
@@ -156,9 +196,49 @@ render() {
       <Grid container spacing={2}>
         <Grid item xs={12} sm={2}>           
           <Paper className={classes.paper}>  
-            <h3 className="filterTil">Filters: <span className='yearCss'>{this.state.selectedYear}</span></h3> 
+            <h3 className="filterTil">Filters: 
+            <span className='yearCss'>{this.state.selectedYear}</span></h3> 
                 <h5><u>Launch Year</u></h5>            
                 {this.getButtonsUsingMap()}
+                <br/><br/>
+                <h5><u>Successfull Launch</u></h5>            
+                <Button 
+                    item xs={6} md={6} 
+                    variant="contained" 
+                    color="primary" 
+                    onClick={() => {this.Launch_Land('T')}}
+                    key='True'
+                    value='True'> True
+                </Button>
+
+                <Button 
+                    item xs={6} md={6} 
+                    variant="contained" 
+                    color="primary" 
+                    onClick={() => {this.Launch_Land('F')}}
+                    key='False'
+                    value='False'> False 
+                </Button>
+                <br/><br/>
+                <h5><u>Successfull Landing</u></h5>    
+                <Button 
+                    item xs={6} md={6} 
+                    variant="contained" 
+                    color="primary" 
+                    onClick={() => {this.Year_Launch_Land('T')}}
+                    key='True'
+                    value='True'> True
+                </Button>
+
+                <Button 
+                    item xs={6} md={6} 
+                    variant="contained" 
+                    color="primary" 
+                    onClick={() => {this.Year_Launch_Land('F')}}
+                    key='False'
+                    value='False'> False 
+                </Button>
+
           </Paper>
         </Grid>
         
